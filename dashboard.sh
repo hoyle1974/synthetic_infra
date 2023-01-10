@@ -4,8 +4,7 @@ up() {
 
 	# Install kube dashboard
 	kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
-	kubectl create -f dashboard/kube-dashboard.yaml
-	kubectl create -f dashboard/kube-dashboard-clusterrolebinding.yaml
+	kubectl create -f dashboard.yaml
 
 	echo
 	echo "To create a token for logging into the dashboard, run this:"
@@ -19,8 +18,7 @@ up() {
 }
 
 down() {
-	kubectl delete -f dashboard/kube-dashboard-clusterrolebinding.yaml
-	kubectl delete -f dashboard/kube-dashboard.yaml
+	kubectl delete -f dashboard.yaml
 	kubectl delete -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
 }
 
