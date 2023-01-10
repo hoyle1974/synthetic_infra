@@ -1,0 +1,1 @@
+This project is part of an ongoing series I'm working on to build out synthetic infrastructure using Kubernetes.  You can follow my journey here: https://medium.com/@hoyle.hoyle/lets-build-out-the-infra-for-a-company-for-fun-part-1-c2fdbdcd0a17
