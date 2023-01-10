@@ -5,6 +5,7 @@ up() {
 }
 
 down() {
+	k3d cluster stop k3s-default
 	k3d cluster delete k3s-default
 }
 
