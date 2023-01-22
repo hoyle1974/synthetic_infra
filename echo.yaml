@@ -5,8 +5,9 @@ metadata:
   labels:
     app: echoserver
     version: v1
+    operated-prometheus: "true"
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: echoserver
@@ -19,7 +20,7 @@ spec:
     spec:
       containers:
       - name: echoserver
-        image: gcr.io/google_containers/echoserver:1.0
+        image: gcr.io/google_containers/echoserver:1.10
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
