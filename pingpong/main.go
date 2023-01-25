@@ -45,17 +45,25 @@ func PingPongHandler(writer http.ResponseWriter, request *http.Request) {
 	// allow pre-flight headers
 	writer.Header().Set("Access-Control-Allow-Headers", "Content-Range, Content-Disposition, Content-Type, ETag")
 
-	var url string
 	if *phrase == "ping" {
 		fmt.Fprintf(writer, "pong\n")
-		url = fmt.Sprintf("http://pong:%d/pong", *port)
 	} else {
 		fmt.Fprintf(writer, "ping\n")
+	}
+
+	request.Write(writer)
+}
+
+func PingPongClient() {
+	var url string
+	if *phrase == "ping" {
+		url = fmt.Sprintf("http://pong:%d/pong", *port)
+	} else {
 		url = fmt.Sprintf("http://ping:%d/ping", *port)
 	}
 
-	go func() {
-		wait := time.Second * time.Duration(rand.Int()%60)
+	for {
+		wait := time.Second * time.Duration(rand.Int()%10)
 		log.Printf("Waiting %v seconds\n", wait)
 		time.Sleep(wait)
 		resp, err := http.Get(url)
@@ -64,9 +72,7 @@ func PingPongHandler(writer http.ResponseWriter, request *http.Request) {
 		} else {
 			log.Println(resp)
 		}
-	}()
-
-	request.Write(writer)
+	}
 }
 
 func HealthHandler(writer http.ResponseWriter, request *http.Request) {
@@ -92,6 +98,8 @@ func main() {
 	http.HandleFunc(fmt.Sprintf("/%s", *phrase), PingPongHandler)
 	http.HandleFunc("/health", HealthHandler)
 	http.Handle("/metrics", promhttp.Handler())
+
+	go PingPongClient()
 
 	http.ListenAndServe(":"+fmt.Sprintf("%v", (*port)), nil)
 

@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: pong-v1
+  labels:
+    name: pong-v1
+spec:
+  namespaceSelector:
+    matchNames:
+      - default
+  selector:
+    matchLabels:
+      name: pong-v1
+  podMetricsEndpoints:
+  - targetPort: 8080
