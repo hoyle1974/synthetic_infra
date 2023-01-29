@@ -5,9 +5,8 @@ metadata:
   labels:
     app: pong
     version: v1
-    operated-prometheus: "true"
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: pong
@@ -50,6 +49,7 @@ metadata:
   labels:
     app: pong
     service: pong
+    operated-prometheus: "true"
 spec:
   selector:
     app: pong

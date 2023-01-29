@@ -5,9 +5,8 @@ metadata:
   labels:
     app: ping
     version: v1
-    operated-prometheus: "true"
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: ping
@@ -50,6 +49,7 @@ metadata:
   labels:
     app: ping
     service: ping
+    operated-prometheus: "true"
 spec:
   selector:
     app: ping
