@@ -3,7 +3,7 @@
 up() {
 	helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 	helm repo update
-	helm install prom-operator-01 prometheus-community/kube-prometheus-stack --version 35.0.0
+	helm install prom-operator-01 prometheus-community/kube-prometheus-stack 
 
 	kubectl create -f prometheus-rbac.yaml
 	kubectl create -f prometheus.yaml
