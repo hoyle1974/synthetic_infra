@@ -10,3 +10,11 @@ then
 	echo "----- DOWN -----"
 	down
 fi
+
+if [ "$1" = "restart" ]
+then
+	echo "----- DOWN -----"
+	down
+	echo "----- UP -----"
+	up
+fi

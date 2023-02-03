@@ -21,12 +21,15 @@ var (
 		Name: "health_ops_total",
 		Help: "The total number of processed events",
 	})
+	pingpongProcessed = promauto.NewCounter(prometheus.CounterOpts{
+		Name: "pingpong_ops_total",
+		Help: "The total number of processed events",
+	})
 )
 
 // EchoHandler echos back the request as a response
 func EchoHandler(writer http.ResponseWriter, request *http.Request) {
-
-	log.Println("Echoing back request made to " + request.URL.Path + " to client (" + request.RemoteAddr + ")")
+	log.Println("EchoHandler - Echoing back request made to " + request.URL.Path + " to client (" + request.RemoteAddr + ")")
 
 	writer.Header().Set("Access-Control-Allow-Origin", "*")
 
@@ -37,8 +40,9 @@ func EchoHandler(writer http.ResponseWriter, request *http.Request) {
 }
 
 func PingPongHandler(writer http.ResponseWriter, request *http.Request) {
+	pingpongProcessed.Inc()
 
-	log.Println("Echoing back request made to " + request.URL.Path + " to client (" + request.RemoteAddr + ")")
+	log.Println("PingPongHandler - Echoing back request made to " + request.URL.Path + " to client (" + request.RemoteAddr + ")")
 
 	writer.Header().Set("Access-Control-Allow-Origin", "*")
 
@@ -53,6 +57,7 @@ func PingPongHandler(writer http.ResponseWriter, request *http.Request) {
 
 	request.Write(writer)
 }
+
 
 func PingPongClient() {
 	var url string
@@ -77,7 +82,7 @@ func PingPongClient() {
 
 func HealthHandler(writer http.ResponseWriter, request *http.Request) {
 	opsProcessed.Inc()
-	log.Println("Echoing back health request made to " + request.URL.Path + " to client (" + request.RemoteAddr + ")")
+	log.Println("HealthHandler - Echoing back health request made to " + request.URL.Path + " to client (" + request.RemoteAddr + ")")
 
 	writer.Header().Set("Access-Control-Allow-Origin", "*")
 
@@ -92,6 +97,7 @@ func HealthHandler(writer http.ResponseWriter, request *http.Request) {
 func main() {
 	flag.Parse()
 
+	log.Println("PingPong V2")
 	log.Println("starting server, listening on port " + fmt.Sprintf("%v", (*port)))
 
 	http.HandleFunc("/", EchoHandler)
