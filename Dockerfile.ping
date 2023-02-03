@@ -22,10 +22,10 @@ RUN adduser \
 WORKDIR $GOPATH/src/mypackage/myapp/
 COPY . .
 # Fetch dependencies.
-RUN go mod download
-RUN go mod verify
+RUN cd pingpong && go mod download
+RUN cd pingpong  && go mod verify
 # Build the binary
-RUN GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /go/bin/pingpong
+RUN cd pingpong && GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /go/bin/pingpong
 RUN upx /go/bin/pingpong
 ############################
 # STEP 2 build a small image
