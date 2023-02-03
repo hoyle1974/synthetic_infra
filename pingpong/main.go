@@ -3,8 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
+	"html"
 	"math/rand"
 	"net/http"
+	"runtime/debug"
 	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -25,6 +27,17 @@ var (
 		Name: "pingpong_ops_total",
 		Help: "The total number of processed events",
 	})
+
+	commit = func() string {
+		if info, ok := debug.ReadBuildInfo(); ok {
+			for _, setting := range info.Settings {
+				if setting.Key == "vcs.revision" {
+					return setting.Value
+				}
+			}
+		}
+		return ""
+	}()
 )
 
 // EchoHandler echos back the request as a response
@@ -57,7 +70,6 @@ func PingPongHandler(writer http.ResponseWriter, request *http.Request) {
 
 	request.Write(writer)
 }
-
 
 func PingPongClient() {
 	var url string
@@ -97,13 +109,18 @@ func HealthHandler(writer http.ResponseWriter, request *http.Request) {
 func main() {
 	flag.Parse()
 
-	log.Println("PingPong V2")
+	log.Println("PingPong")
+	log.Println("Get Revision: " + commit)
 	log.Println("starting server, listening on port " + fmt.Sprintf("%v", (*port)))
 
 	http.HandleFunc("/", EchoHandler)
 	http.HandleFunc(fmt.Sprintf("/%s", *phrase), PingPongHandler)
 	http.HandleFunc("/health", HealthHandler)
-	http.Handle("/metrics", promhttp.Handler())
+	//http.Handle("/metrics", promhttp.Handler())
+	http.HandleFunc("/metrics", func(w http.ResponseWriter, r *http.Request) {
+		log.Println(w, "*** Metrics Call *** ", html.EscapeString(r.URL.Path))
+		promhttp.Handler().ServeHTTP(w, r)
+	})
 
 	go PingPongClient()
 
