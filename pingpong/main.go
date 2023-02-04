@@ -118,6 +118,7 @@ func main() {
 	http.HandleFunc("/health", HealthHandler)
 	//http.Handle("/metrics", promhttp.Handler())
 	http.HandleFunc("/metrics", func(w http.ResponseWriter, r *http.Request) {
+		log.Println("MetricsHandler - URL:" + r.URL.Path + " client (" + r.RemoteAddr + ")")
 		log.Println(w, "*** Metrics Call *** ", html.EscapeString(r.URL.Path))
 		promhttp.Handler().ServeHTTP(w, r)
 	})
