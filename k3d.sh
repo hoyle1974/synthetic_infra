@@ -9,6 +9,7 @@ down() {
 	k3d cluster stop k3s-default
 	k3d cluster delete k3s-default
 	k3d registry delete myregistry.localhost
+	docker image prune -af
 }
 
 . ./base.sh $1
