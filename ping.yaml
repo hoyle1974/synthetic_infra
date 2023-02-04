@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ping-v1
+  name: ping
   labels:
     app: ping
     version: v1

@@ -1,14 +1,25 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: pingpong
+  name: ping
   labels:
-    name: pingpong
+    name: ping
 spec:
   selector:
     matchLabels:
-      operated-prometheus: "true"
-  namespaceSelector:
-    any: true
+      app: ping
+  endpoints:
+    - port: http
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: pong
+  labels:
+    name: pong
+spec:
+  selector:
+    matchLabels:
+      app: pong
   endpoints:
     - port: http

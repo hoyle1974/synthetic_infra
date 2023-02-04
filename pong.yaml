@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pong-v1
+  name: pong
   labels:
     app: pong
     version: v1
