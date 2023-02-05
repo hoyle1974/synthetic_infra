@@ -7,7 +7,6 @@ up() {
 	docker tag pong:latest k3d-myregistry.localhost:12345/pong:v1
 	docker push k3d-myregistry.localhost:12345/ping:v1
 	docker push k3d-myregistry.localhost:12345/pong:v1
-	kubectl create namespace pingpong
 	kubectl create -f ping.yaml
 	kubectl create -f pong.yaml
 }
@@ -15,7 +14,6 @@ up() {
 down() {
 	kubectl delete -f ping.yaml
 	kubectl delete -f pong.yaml
-	kubectl delete namespace pingpong
 }
 
 . ./base.sh $1
