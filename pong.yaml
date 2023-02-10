@@ -60,7 +60,7 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: pong
+  name: pong-sm
   labels:
     name: pong
 spec:
@@ -69,3 +69,4 @@ spec:
       app: pong
   endpoints:
     - port: http
+      path: /metrics

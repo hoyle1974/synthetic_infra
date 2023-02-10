@@ -1,0 +1,15 @@
+gitea:
+  config:
+    metrics: 
+      ENABLED: true
+service:
+  http:
+    serviceType: ClusterIP
+    port: 3000
+    externalPort: 8280
+    externalHost: gunsmoke
+  ssh:
+    serviceType: NodePort
+    port: 22
+    externalPort: 8022
+    externalHost: gunsmoke

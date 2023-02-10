@@ -22,7 +22,7 @@ up() {
 
 
 	ip=`hostname -I | awk '{print $1}'`
-	echo "Prometheus expose: kubectl port-forward --address=$ip svc/prometheus-operated 9090:9090"
+	echo "Prometheus expose: kubectl port-forward --address=$ip svc/prometheus-operated 9090:9090 -n monotiring"
 	echo "Grafana expose: kubectl port-forward --address=$ip svc/grafana 3000 -n monitoring"
 	echo "	Grafana user/pass is admin/admin"
 }
