@@ -30,7 +30,7 @@ pipelines:
               #command: /bin/bash
                 arguments:
                   - -c
-                  - echo
-                  - Hi!
+                  - find
+                  - /
                 command: /bin/bash
                 run_if: passed
