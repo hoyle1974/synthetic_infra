@@ -5,12 +5,12 @@ up() {
 	helm repo update
 	kubectl create namespace gitea
 	helm install gitea gitea-charts/gitea -f gitea-values.yaml -n gitea
-	kubectl create -f gitea-sm.yaml #-n gitea
+	kubectl create -f gitea-sm.yaml 
 }
 
 down() {
 	helm uninstall gitea -n gitea
-	kubectl delete -f gitea-sm.yaml #-n gitea
+	kubectl delete -f gitea-sm.yaml 
 	kubectl delete namespace gitea
 }
 

@@ -1,4 +1,8 @@
 gitea:
+  admin:
+    username: gitea-admin
+    password: admin
+  #existingSecret: gitea-admin-secret
   config:
     metrics: 
       ENABLED: true
