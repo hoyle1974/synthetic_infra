@@ -29,6 +29,7 @@ pipelines:
               #- docker build -t ping:$GO_PIPELINE_LABEL . -f Dockerfile.ping
               #command: /bin/bash
                 arguments:
+                  - -c
                   - echo
                   - Hi!
                 command: /bin/bash
