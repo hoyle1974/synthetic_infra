@@ -1,5 +1,24 @@
 #!/bin/bash
 
+wait_for_pod() {
+	c=0
+	echo -n "Waiting for $1/$2 to be running"
+	while [[ $(kubectl get -n $1 pods $2 -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do
+		if [ $c == 0  ]
+		then
+			echo -n "."
+		fi
+		sleep 1
+		c=$(( $c + 1 ))
+		if [ $c -gt 5  ]
+		then 
+			c=0
+		fi
+
+	done
+	echo "$1/$2 is now running."
+}
+
 if [[ "$1" = "up" || -z "$1" ]]; then
 	echo "----- UP -----"
 	up
