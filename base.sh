@@ -19,6 +19,11 @@ wait_for_pod() {
 	echo "$1/$2 is now running."
 }
 
+wait_for_app() {
+	kubectl wait pods -n $1 -l app=$2 --for condition=Ready --timeout=600s
+	echo "$1/$2 is now running."
+}
+
 if [[ "$1" = "up" || -z "$1" ]]; then
 	echo "----- UP -----"
 	up
