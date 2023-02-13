@@ -26,6 +26,6 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - docker build -t $DOCKERHUB_USERNAME/ping:$GO_PIPELINE_LABEL . -f Dockerfile.ping
+                  - docker build -t ping:$GO_PIPELINE_LABEL . -f Dockerfile.ping
                 command: /bin/bash
                 run_if: passed
