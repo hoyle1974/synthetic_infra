@@ -24,8 +24,12 @@ pipelines:
             timeout: 0
             tasks:
             - exec:
+              #arguments:
+              #- -c
+              #- docker build -t ping:$GO_PIPELINE_LABEL . -f Dockerfile.ping
+              #command: /bin/bash
                 arguments:
-                  - -c
-                  - docker build -t ping:$GO_PIPELINE_LABEL . -f Dockerfile.ping
+                  - echo
+                  - Hi!
                 command: /bin/bash
                 run_if: passed
