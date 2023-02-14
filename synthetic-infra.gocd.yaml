@@ -23,6 +23,14 @@ pipelines:
           build-ping:
             elastic_profile_id: demo-app
             timeout: 0
+            artifacts:
+            - external:
+                id: ping
+                store_id: docker-registry
+                configuration:
+                  options:
+                    Image: ping
+                    Tag: ${GO_PIPELINE_LABEL}
             tasks:
             - exec:
                 arguments:
