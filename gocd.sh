@@ -5,7 +5,7 @@ up() {
 	helm repo update
 
 	kubectl create namespace gocd
-	helm install gocd gocd/gocd --namespace gocd
+	helm install gocd gocd/gocd --namespace gocd -f gocd-values.yaml
 
 	wait_for_app gocd gocd
 }

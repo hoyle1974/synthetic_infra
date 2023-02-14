@@ -1,0 +1,6 @@
+#agent:
+#replicaCount: 0
+#image:
+    #repository: gocd/gocd-agent-docker-dind
+    #repository: gocd/gocd-agent-ubuntu-22.04
+
