@@ -33,7 +33,7 @@ spec:
     tls:
       mode: PASSTHROUGH
     hosts:
-    - dashboard.example.com
+    - gunsmoke-dashboard.local
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -42,7 +42,7 @@ metadata:
   namespace: kubernetes-dashboard
 spec:
   hosts:
-  - dashboard.example.com
+  - gunsmoke-dashboard.local
   gateways:
   - dashboard-gateway
   http:
@@ -50,7 +50,7 @@ spec:
   - match:
     - port: 443
       sniHosts:
-      - dashboard.example.com
+      - gunsmoke-dashboard.local
     route:
     - destination:
         host: kubernetes-dashboard.kubernetes-dashboard.svc.cluster.local

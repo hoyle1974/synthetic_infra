@@ -4,7 +4,23 @@ up() {
 
 	# Install kube dashboard
 	kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+	kubectl label namespace kubernetes-dashboard istio-injection=enabled
 	kubectl create -f dashboard.yaml
+	kubectl patch service kubernetes-dashboard -n kubernetes-dashboard --patch-file dashboard-patch-dashboard-service.yaml
+	kubectl patch service dashboard-metrics-scraper -n kubernetes-dashboard --patch-file dashboard-patch-metrics-service.yaml
+
+	kubectl scale --replicas=0 deployment/kubernetes-dashboard -n kubernetes-dashboard
+	kubectl scale --replicas=0 deployment/dashboard-metrics-scraper -n kubernetes-dashboard
+
+	kubectl scale --replicas=1 deployment/kubernetes-dashboard -n kubernetes-dashboard
+	kubectl scale --replicas=1 deployment/dashboard-metrics-scraper -n kubernetes-dashboard
+
+	sleep 3
+
+	echo -n "Waiting for dashboard metrics server . . ."
+	kubectl wait pods -n kubernetes-dashboard -l k8s-app=dashboard-metrics-scraper --for condition=Ready --timeout=600s
+	echo -n "Waiting for kubernetes dashboard . . ."
+	kubectl wait pods -n kubernetes-dashboard -l k8s-app=kubernetes-dashboard --for condition=Ready --timeout=600s
 
 	echo
 	echo "To create a token for logging into the dashboard, run this:"
@@ -18,7 +34,7 @@ up() {
 	echo "If you have this on a remote machine try creating a DNS entry to that machine for: dashboard.example.com"
 	echo "and then try: "
 	echo
-	echo "https://dashboard.example.com:9443/#/login"
+	echo "https://gunsmoke.local:9443/#/login"
 }
 
 down() {

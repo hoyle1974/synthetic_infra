@@ -24,6 +24,7 @@ wait_for_app() {
 	echo "$1/$2 is now running."
 }
 
+
 if [[ "$1" = "up" || -z "$1" ]]; then
 	echo "----- UP -----"
 	up
