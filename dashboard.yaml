@@ -17,23 +17,23 @@ subjects:
   name: admin-user
   namespace: kubernetes-dashboard
 ---
-apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
-metadata:
-  name: dashboard-gateway
-  namespace: kubernetes-dashboard
-spec:
-  selector:
-    istio: ingressgateway # use istio default ingress gateway
-  servers:
-  - port:
-      number: 443
-      name: https
-      protocol: HTTPS
-    tls:
-      mode: PASSTHROUGH
-    hosts:
-    - gunsmoke-dashboard.local
+#apiVersion: networking.istio.io/v1alpha3
+#kind: Gateway
+#metadata:
+#name: dashboard-gateway
+#namespace: kubernetes-dashboard
+#spec:
+#selector:
+#istio: ingressgateway # use istio default ingress gateway
+#servers:
+#- port:
+#number: 443
+#name: https
+#protocol: HTTPS
+#tls:
+#mode: PASSTHROUGH
+#hosts:
+#- gunsmoke-dashboard.local
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -44,7 +44,8 @@ spec:
   hosts:
   - gunsmoke-dashboard.local
   gateways:
-  - dashboard-gateway
+    #- dashboard-gateway
+  - default/primary-gateway
   http:
   tls:
   - match:

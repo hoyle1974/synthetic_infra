@@ -9,13 +9,11 @@ up() {
 	kubectl patch service kubernetes-dashboard -n kubernetes-dashboard --patch-file dashboard-patch-dashboard-service.yaml
 	kubectl patch service dashboard-metrics-scraper -n kubernetes-dashboard --patch-file dashboard-patch-metrics-service.yaml
 
-	kubectl scale --replicas=0 deployment/kubernetes-dashboard -n kubernetes-dashboard
-	kubectl scale --replicas=0 deployment/dashboard-metrics-scraper -n kubernetes-dashboard
-
-	kubectl scale --replicas=1 deployment/kubernetes-dashboard -n kubernetes-dashboard
-	kubectl scale --replicas=1 deployment/dashboard-metrics-scraper -n kubernetes-dashboard
+	kubectl rollout restart deployment kubernetes-dashboard -n kubernetes-dashboard
+	kubectl rollout restart deployment dashboard-metrics-scraper -n kubernetes-dashboard
 
 	sleep 3
+
 
 	echo -n "Waiting for dashboard metrics server . . ."
 	kubectl wait pods -n kubernetes-dashboard -l k8s-app=dashboard-metrics-scraper --for condition=Ready --timeout=600s

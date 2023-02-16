@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: primary-gateway
+  namespace: default
+spec:
+  selector:
+    istio: ingressgateway # use istio default ingress gateway
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: PASSTHROUGH
+    hosts: 
+    - gunsmoke-dashboard.local
+      #- "*"
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts: 
+    - gunsmoke-dashboard.local
+      #- "*"
