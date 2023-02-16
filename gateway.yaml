@@ -15,11 +15,11 @@ spec:
       mode: PASSTHROUGH
     hosts: 
     - gunsmoke-dashboard.local
-      #- "*"
   - port:
       number: 80
       name: http
       protocol: HTTP
     hosts: 
-    - gunsmoke-dashboard.local
-      #- "*"
+      - prometheus.gunsmoke.local
+      - ping.gunsmoke.local
+      - pong.gunsmoke.local
