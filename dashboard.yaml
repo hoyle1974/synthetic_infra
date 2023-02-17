@@ -24,16 +24,15 @@ metadata:
   namespace: kubernetes-dashboard
 spec:
   hosts:
-  - gunsmoke-dashboard.local
+  - dashboard.gunsmoke.local
   gateways:
-    #- dashboard-gateway
   - default/primary-gateway
   http:
   tls:
   - match:
     - port: 443
       sniHosts:
-      - gunsmoke-dashboard.local
+      - dashboard.gunsmoke.local
     route:
     - destination:
         host: kubernetes-dashboard.kubernetes-dashboard.svc.cluster.local

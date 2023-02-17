@@ -14,7 +14,7 @@ spec:
     tls:
       mode: PASSTHROUGH
     hosts: 
-    - gunsmoke-dashboard.local
+    - dashboard.gunsmoke.local
   - port:
       number: 80
       name: http
