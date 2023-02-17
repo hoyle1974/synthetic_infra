@@ -5,17 +5,17 @@ gitea:
   config:
     metrics: 
       ENABLED: true
-server:
-  DOMAIN: gunsmoke
-  ROOT_URL: http://gunsmoke
+    server:
+      DOMAIN: gunsmoke.local
+      ROOT_URL: http://gitea.gunsmoke.local:9080/
 service:
   http:
     serviceType: ClusterIP
     port: 3000
-    externalPort: 8280
-    externalHost: gunsmoke
+    externalPort: 9080
+    externalHost: gitea.gunsmoke.local
   ssh:
     serviceType: NodePort
     port: 22
     externalPort: 8022
-    externalHost: gunsmoke
+    externalHost: gitea.gunsmoke.local

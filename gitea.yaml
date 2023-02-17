@@ -1,0 +1,51 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: gitea-sm
+  labels:
+    env: production
+spec:
+  selector:
+    matchLabels:
+      app: gitea
+        #namespaceSelector:
+        #matchNames:
+        #- gitea
+  endpoints:
+    - port: http
+      path: /metrics
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gitea
+  namespace: gitea
+spec:
+  hosts:
+  - gitea.gunsmoke.local
+  gateways:
+  - default/primary-gateway
+  http:
+  - match:
+    - uri:
+        prefix: "/"
+    - port: 80
+    route:
+    - destination:
+        host: gitea-http.gitea.svc.cluster.local
+        port:
+          number: 3000
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: gitea-allow-external
+  namespace: gitea
+spec:
+  podSelector:
+    matchLabels:
+      app: gitea
+      app.kubernetes.io/instance: gitea
+  ingress:
+  - ports:
+    - port: 3000
