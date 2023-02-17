@@ -21,5 +21,6 @@ spec:
       protocol: HTTP
     hosts: 
       - prometheus.gunsmoke.local
+      - grafana.gunsmoke.local
       - ping.gunsmoke.local
       - pong.gunsmoke.local

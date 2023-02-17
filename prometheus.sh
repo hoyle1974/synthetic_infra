@@ -23,6 +23,10 @@ up() {
 	kubectl patch service prometheus-k8s -n monitoring --patch-file prometheus-operated-patch.yaml
 	kubectl label namespace monitoring istio-injection=enabled
 	kubectl rollout restart deployment prometheus-operator -n monitoring
+	kubectl rollout restart deployment grafana -n monitoring
+	kubectl rollout restart deployment blackbox-exporter -n monitoring
+	kubectl rollout restart deployment kube-state-metrics -n monitoring
+	kubectl rollout restart deployment prometheus-adapter -n monitoring
 	kubectl create -f prometheus.yaml
 
 
