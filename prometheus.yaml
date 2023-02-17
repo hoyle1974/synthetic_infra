@@ -1,13 +1,50 @@
-apiVersion: monitoring.coreos.com/v1
-kind: Prometheus
+#apiVersion: monitoring.coreos.com/v1
+#kind: Prometheus
+#metadata:
+#name: prometheus
+#namespace: monitoring
+#spec:
+#serviceAccountName: prometheus
+#serviceMonitorNamespaceSelector: {}
+#serviceMonitorSelector: {}
+#podMonitorSelector: {}
+#resources:
+#requests:
+#memory: 400Mi
+#---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
 metadata:
   name: prometheus
-    namespace: monitoring
+  namespace: monitoring
 spec:
-  serviceAccountName: prometheus
-  serviceMonitorNamespaceSelector: {}
-  serviceMonitorSelector: {}
-  podMonitorSelector: {}
-  resources:
-    requests:
-      memory: 400Mi
+  hosts:
+  - prometheus.gunsmoke.local
+  gateways:
+  - default/primary-gateway
+  http:
+  - match:
+    - uri:
+        prefix: "/"
+    - port: 8080
+    route:
+    - destination:
+        host: prometheus-operated.monitoring.svc.cluster.local
+        port:
+          number: 9090
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: prometheus-allow-external
+  namespace: monitoring
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: prometheus
+      app.kubernetes.io/instance: k8s
+      app.kubernetes.io/name: prometheus
+      app.kubernetes.io/part-of: kube-prometheus
+  ingress:
+  - ports:
+    - port: 9090
