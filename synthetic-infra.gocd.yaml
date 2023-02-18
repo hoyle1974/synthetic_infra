@@ -35,6 +35,12 @@ pipelines:
             - exec:
                 arguments:
                   - -c
+                  - docker login -p admin -u admin registry.gunsmoke.local:5000
+                command: /bin/bash
+                run_if: passed
+            - exec:
+                arguments:
+                  - -c
                   - docker build -t ping:$GO_PIPELINE_LABEL . -f Dockerfile.ping
                 command: /bin/bash
                 run_if: passed
