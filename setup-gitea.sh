@@ -20,7 +20,7 @@ curl -X 'POST' \
   \"milestones\": true,
   \"mirror\": true,
   \"mirror_interval\": \"10m0s\",
-  \"private\": true,
+  \"private\": false,
   \"pull_requests\": true,
   \"releases\": true,
   \"repo_name\": \"SyntheticInfra\",
