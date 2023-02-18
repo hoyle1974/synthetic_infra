@@ -25,3 +25,4 @@ spec:
       - ping.gunsmoke.local
       - pong.gunsmoke.local
       - gitea.gunsmoke.local
+      - gocd.gunsmoke.local
