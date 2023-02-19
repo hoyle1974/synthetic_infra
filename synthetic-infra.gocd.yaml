@@ -33,6 +33,7 @@ pipelines:
                     Tag: ${GO_PIPELINE_LABEL}
             tasks:
             - exec:
+                working_directory: dir
                 arguments:
                   - -c
                   - docker build -t ping:$GO_PIPELINE_LABEL . -f Dockerfile.ping
