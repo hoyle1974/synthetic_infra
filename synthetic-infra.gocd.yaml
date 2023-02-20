@@ -39,3 +39,10 @@ pipelines:
                     #- docker build -t ping:$GO_PIPELINE_LABEL . -f Dockerfile.ping
                 command: /bin/bash
                 run_if: passed
+            - exec:
+                arguments:
+                  - -c
+                  - sleep 600
+                    #- docker build -t ping:$GO_PIPELINE_LABEL . -f Dockerfile.ping
+                command: /bin/bash
+                run_if: passed
