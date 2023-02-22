@@ -35,6 +35,7 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - docker build -t ping:$GO_PIPELINE_LABEL . -f Dockerfile.ping
+                  #- docker build -t ping:$GO_PIPELINE_LABEL . -f Dockerfile.ping
+		  - docker run -v .:/workspace gcr.io/kaniko-project/executor:latest --dockerfile /workspace/Dockerfile.ping --destination "gcr.io/pingpong/ping:latest" --context dir:///workspace/
                 command: /bin/bash
                 run_if: passed
