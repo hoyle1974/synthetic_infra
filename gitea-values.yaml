@@ -7,12 +7,12 @@ gitea:
       ENABLED: true
     server:
       DOMAIN: gunsmoke.local
-      ROOT_URL: http://gitea.gunsmoke.local:9080/
+      ROOT_URL: http://gitea.gunsmoke.local:31468/
 service:
   http:
     serviceType: ClusterIP
     port: 3000
-    externalPort: 9080
+    externalPort: 31468
     externalHost: gitea.gunsmoke.local
   ssh:
     serviceType: NodePort

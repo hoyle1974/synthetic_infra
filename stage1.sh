@@ -1,8 +1,8 @@
 #!/bin/bash
 
+./istio.sh
 ./dashboard.sh
 ./prometheus.sh
-./istio.sh
 ./pingpong.sh
 ./gitea.sh
 echo

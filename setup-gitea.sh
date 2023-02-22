@@ -1,9 +1,9 @@
 #!/bin/bash
 
-token=`curl -H "Content-Type: application/json" -d '{"name":"initial-setup"}' -u gitea-admin:admin http://gitea.gunsmoke.local:9080/api/v1/users/gitea-admin/tokens | tr ',' '\n' | grep sha1 | cut -f2 -d':' | cut -f2 -d'"'`
+token=`curl -H "Content-Type: application/json" -d '{"name":"initial-setup"}' -u gitea-admin:admin http://gitea.gunsmoke.local:31468/api/v1/users/gitea-admin/tokens | tr ',' '\n' | grep sha1 | cut -f2 -d':' | cut -f2 -d'"'`
 
 curl -X 'POST' \
-  'http://gitea.gunsmoke.local:9080/api/v1/repos/migrate' \
+  'http://gitea.gunsmoke.local:31468/api/v1/repos/migrate' \
   -H "Authorization: token $token" \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \

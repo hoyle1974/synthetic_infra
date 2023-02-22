@@ -11,7 +11,7 @@ up() {
 
 	wait_for_pod gitea gitea-0
 
-	./setup_gitea.sh
+	./setup-gitea.sh
 }
 
 down() {
