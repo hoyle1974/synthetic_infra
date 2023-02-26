@@ -1,0 +1,14 @@
+FROM quay.io/podman/stable 
+USER root
+RUN curl https://download.gocd.org/gocd.repo -o /etc/yum.repos.d/gocd.repo
+RUN yum update
+RUN yum install -y go-agent ca-certificates git 
+RUN update-ca-trust
+#RUN /sbin/service go-agent start
+RUN echo "#!/bin/bash" > entrypoint.sh
+RUN echo "echo \"wrapper.app.parameter.100=-serverUrl\" > /usr/share/go-agent/wrapper-config/wrapper-properties.conf" >> ./entrypoint.sh
+RUN echo "echo \"wrapper.app.parameter.101=${GO_SERVER_URL}\" >> /usr/share/go-agent/wrapper-config/wrapper-properties.conf" >> ./entrypoint.sh
+RUN echo "/usr/share/go-agent/bin/go-agent start"  >> entrypoint.sh
+RUN chmod ugo+x ./entrypoint.sh
+#ENTRYPOINT [ "/entrypoint.sh" ]
+

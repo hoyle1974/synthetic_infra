@@ -5,7 +5,7 @@
 up() {
 	helm repo add twuni https://helm.twun.io
 	helm install docker-registry twuni/docker-registry -f registry-values.yaml
-	#kubectl create -f registry.yaml
+	kubectl create -f registry.yaml
 
 	#wait_for_pod default docker-registry-pod
 }

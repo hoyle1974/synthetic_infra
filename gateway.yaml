@@ -27,3 +27,4 @@ spec:
       - gitea.gunsmoke.local
       - gocd.gunsmoke.local
       - registry.gunsmoke.local
+      - gitlab.gunsmoke.local

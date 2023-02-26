@@ -2,6 +2,7 @@ agent:
   replicaCount: 0
   image:
     #repository: gocd/gocd-agent-docker-dind
-    repository: gocd/gocd-agent-ubuntu-22.04
+    #repository: gocd/gocd-agent-ubuntu-22.04
+    repository: registry.gunsmoke.local:31468/buildah
   privileged: true
 
