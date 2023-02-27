@@ -35,6 +35,6 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - buildah bud -f Dockerfile.ping .
+                  - sleep 6000 && buildah bud -f Dockerfile.ping .
                 command: /bin/bash
                 run_if: passed
