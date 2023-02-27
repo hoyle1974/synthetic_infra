@@ -35,7 +35,7 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - buildah bud -t -t ping:${GO_PIPELINE_LABEL} -f Dockerfile.ping .
+                  - buildah bud -t ping:${GO_PIPELINE_LABEL} -f Dockerfile.ping .
                 command: /bin/bash
                 run_if: passed
             - exec:
