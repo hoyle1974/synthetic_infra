@@ -35,6 +35,6 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - buildah bud -t ping:latest . -f Dockerfile.ping
+                  - buildah bud -f Dockerfile.ping .
                 command: /bin/bash
                 run_if: passed
