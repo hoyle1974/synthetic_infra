@@ -59,6 +59,6 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - find /go/dockerfiles
+                  - ls -al /go/dockerfiles/ping
                 command: /bin/bash
                 run_if: passed
