@@ -50,3 +50,15 @@ pipelines:
                   - buildah images
                 command: /bin/bash
                 run_if: passed
+            - exec:
+                arguments:
+                  - -c
+                  - buildah tag ping:${GO_PIPELINE_LABEL} jstrohm/ping:${GO_PIPELINE_LABEL}
+                command: /bin/bash
+                run_if: passed
+            - exec:
+                arguments:
+                  - -c
+                  - buildah push jstrohm/ping:${GO_PIPELINE_LABEL}
+                command: /bin/bash
+                run_if: passed
