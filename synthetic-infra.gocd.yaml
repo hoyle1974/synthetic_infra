@@ -53,7 +53,7 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - buildah push ping:${GO_PIPELINE_LABEL} /go/dockerfiles/ping:${GO_PIPELINE_LABEL}
+                  - buildah push ping:${GO_PIPELINE_LABEL} docker-archive:/go/dockerfiles/ping:${GO_PIPELINE_LABEL}
                 command: /bin/bash
                 run_if: passed
             - exec:
