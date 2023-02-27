@@ -41,6 +41,12 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - find /var/lib/containers
+                  - ls /var/lib/containers
+                command: /bin/bash
+                run_if: passed
+            - exec:
+                arguments:
+                  - -c
+                  - buildah images
                 command: /bin/bash
                 run_if: passed
