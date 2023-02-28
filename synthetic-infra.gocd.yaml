@@ -24,20 +24,7 @@ pipelines:
             elastic_profile_id: buildah
             timeout: 0
             artifacts:
-            - external:
-                id: ping
-                store_id: docker-registry
-                configuration:
-                  options:
-                    Image: jstrohm/ping
-                    Tag: ${GO_PIPELINE_LABEL}
             tasks:
-            - exec:
-                arguments:
-                  - -c
-                  - echo ${DOCKER_PASSWORD}
-                command: /bin/bash
-                run_if: passed
             - exec:
                 arguments:
                   - -c

@@ -1,17 +1,3 @@
-#FROM quay.io/podman/stable 
-#USER root
-#RUN curl https://download.gocd.org/gocd.repo -o /etc/yum.repos.d/gocd.repo
-#RUN yum update
-#RUN yum install -y go-agent ca-certificates git 
-#RUN update-ca-trust
-##RUN /sbin/service go-agent start
-#RUN echo "#!/bin/bash" > entrypoint.sh
-#RUN echo "echo \"wrapper.app.parameter.100=-serverUrl\" > /usr/share/go-agent/wrapper-config/wrapper-properties.conf" >> ./entrypoint.sh
-#RUN echo "echo \"wrapper.app.parameter.101=${GO_SERVER_URL}\" >> /usr/share/go-agent/wrapper-config/wrapper-properties.conf" >> ./entrypoint.sh
-#RUN echo "/usr/share/go-agent/bin/go-agent start"  >> entrypoint.sh
-#RUN chmod ugo+x ./entrypoint.sh
-#ENTRYPOINT [ "/entrypoint.sh" ]
-
 FROM gocd/gocd-agent-centos-9:v22.3.0
 USER root
 RUN yum -y install buildah fuse-overlayfs --exclude container-selinux
@@ -20,8 +6,6 @@ RUN sed -i -e 's|^#mount_program|mount_program|g' -e '/additionalimage.*/a "/var
 RUN chmod g+s /usr/bin/newgidmap
 RUN chmod u+s /usr/bin/newuidmap
 RUN yum -y remove apparmor
-RUN mkdir /go/dockerfiles
-RUN mkdir /go/dockerfiles/ping
 ENV _BUILDAH_STARTED_IN_USERNS="" BUILDAH_ISOLATION=chroot STORAGE_DRIVER=vfs
 ENTRYPOINT ["/docker-entrypoint.sh"]
 #USER go
