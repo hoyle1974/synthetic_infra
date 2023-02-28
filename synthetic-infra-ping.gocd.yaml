@@ -66,7 +66,13 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - buildah push oci-archive:./build/ping.tar ping:${GO_PIPELINE_LABEL} 
+                  - buildah pull oci-archive:./build/ping.tar 
+                command: /bin/bash
+                run_if: passed
+            - exec:
+                arguments:
+                  - -c
+                  - buildah images
                 command: /bin/bash
                 run_if: passed
             - exec:
