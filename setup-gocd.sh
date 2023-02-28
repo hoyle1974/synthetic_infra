@@ -8,7 +8,7 @@ curl $URL'/go/api/admin/config_repos' \
   -H 'Accept:application/vnd.go.cd.v4+json' \
   -H 'Content-Type:application/json' \
   -X POST -d '{
-    "id": "synthetic-2",
+    "id": "synthetic",
     "plugin_id": "yaml.config.plugin",
     "material": {
       "type": "git",
