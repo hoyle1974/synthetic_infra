@@ -41,7 +41,7 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - buildah login -u jackstrohm -p $DOCKER_PASSWORD registry-1.docker.io:5000
+                  - buildah login -u jackstrohm -p $DOCKER_PASSWORD docker.io
                 command: /bin/bash
                 run_if: passed
             - exec:
