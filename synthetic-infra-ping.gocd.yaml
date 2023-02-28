@@ -49,8 +49,7 @@ pipelines:
             elastic_profile_id: buildah
             timeout: 0
             artifacts:
-            - artifact:
-              type: build
+            - build:
               src: /go/ping.tar
             tasks:
             - exec:
