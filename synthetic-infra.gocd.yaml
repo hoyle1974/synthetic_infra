@@ -1,7 +1,7 @@
 format_version: 10
 pipelines:
+  environment: default
   synthetic-infra:
-    environment: default
     group: sample
     label_template: ${COUNT}
     lock_behavior: none
@@ -48,7 +48,7 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - buildah login -u jackstrohm -p ${DOCKER_PASSWORD} docker.io
+                  - buildah login -u jstrohm -p ${DOCKER_PASSWORD} docker.io
                 command: /bin/bash
                 run_if: passed
             - exec:
