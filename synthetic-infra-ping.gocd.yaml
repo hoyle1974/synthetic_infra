@@ -36,7 +36,7 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - mkdir build && cd build && buildah push ping:${GO_PIPELINE_LABEL} oci-archive:./ping.tar
+                  - mkdir build && cd build && buildah push ping:${GO_PIPELINE_LABEL} oci-archive:./ping.tar:ping:${GO_PIPELINE_LABEL}
                 command: /bin/bash
                 run_if: passed
             - exec:
