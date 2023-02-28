@@ -42,7 +42,7 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - find /go/pipelines
+                  - find /go
                 command: /bin/bash
                 run_if: passed
     - deploy:
