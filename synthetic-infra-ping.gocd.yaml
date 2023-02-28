@@ -25,7 +25,7 @@ pipelines:
             timeout: 0
             artifacts:
             - build:
-                source: /go/ping.tar
+                source: /godata/pipelines/synthetic-infra-ping/ping.tar
             tasks:
             - exec:
                 arguments:
@@ -42,13 +42,13 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - buildah push ping:${GO_PIPELINE_LABEL} oci-archive:/go/pipeline/ping.tar
+                  - buildah push ping:${GO_PIPELINE_LABEL} oci-archive:/godata/pipelines/synthetic-infra-ping/ping.tar
                 command: /bin/bash
                 run_if: passed
             - exec:
                 arguments:
                   - -c
-                  - find /go
+                  - find /godata/pipelines/synthetic-infra-ping
                 command: /bin/bash
                 run_if: passed
     - deploy:
