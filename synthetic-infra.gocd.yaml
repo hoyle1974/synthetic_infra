@@ -29,7 +29,7 @@ pipelines:
                 store_id: docker-registry
                 configuration:
                   options:
-                    Image: ping
+                    Image: jstrohm/ping
                     Tag: ${GO_PIPELINE_LABEL}
             tasks:
             - exec:
