@@ -1,3 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry
+  labels:
+    app: registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: registry
+  template:
+    metadata:
+      labels:
+        app: registry
+    spec:
+      containers:
+      - name: registry
+        image: registry:2
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - name: registry-data
+          mountPath: /var/lib/registry
+        - name: registry-certs
+          mountPath: /certs
+          readOnly: true
+        - name: registry-auth
+          mountPath: /auth
+          readOnly: true
+        env:
+        - name: REGISTRY_AUTH
+          value: htpasswd
+        - name: REGISTRY_AUTH_HTPASSWD_REALM
+          value: Registry Realm
+        - name: REGISTRY_AUTH_HTPASSWD_PATH
+          value: /auth/htpasswd
+        - name: REGISTRY_HTTP_TLS_CERTIFICATE
+          value: /certs/tls.crt
+        - name: REGISTRY_HTTP_TLS_KEY
+          value: /certs/tls.key
+      volumes:
+      - name: registry-data
+        emptyDir: {}
+      - name: registry-auth
+        configMap:
+          name: registry-auth
+      - name: registry-certs
+        secret:
+          secretName: registry-certs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry
+spec:
+  selector:
+    app: registry
+  ports:
+  - port: 5000
+    protocol: TCP
+    targetPort: 5000
+  type: ClusterIP
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -7,13 +71,14 @@ spec:
   - registry.gunsmoke.local
   gateways:
   - default/primary-gateway
-  http:
+  tls:
   - match:
-    - uri:
-        prefix: "/"
-    - port: 80
+    - port: 443
+      sniHosts:
+      - registry.gunsmoke.local
     route:
     - destination:
-        host: docker-registry.default.svc.cluster.local
+        host: registry.default.svc.cluster.local
         port:
           number: 5000
+      weight: 100
