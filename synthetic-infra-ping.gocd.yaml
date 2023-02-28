@@ -39,7 +39,7 @@ pipelines:
           type: success
           allow_only_on_success: false
         jobs:
-          build-ping:
+          package-ping:
             elastic_profile_id: buildah
             timeout: 0
             artifacts:
@@ -72,15 +72,15 @@ pipelines:
           type: success
           allow_only_on_success: false
         jobs:
-          build-ping:
+          deploy-ping:
             elastic_profile_id: buildah
             timeout: 0
             artifacts:
             tasks:
             - fetch:
                 pipeline: synthetic-infra-ping
-                stage: build
-                job: build-ping
+                stage: package
+                job: package-ping
                 source: build/
             - exec:
                 arguments:
