@@ -30,12 +30,6 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - find /go
-                command: /bin/bash
-                run_if: passed
-            - exec:
-                arguments:
-                  - -c
                   - buildah bud -t ping:${GO_PIPELINE_LABEL} -f Dockerfile.ping .
                 command: /bin/bash
                 run_if: passed
@@ -43,6 +37,12 @@ pipelines:
                 arguments:
                   - -c
                   - buildah push ping:${GO_PIPELINE_LABEL} oci-archive:/go/ping.tar
+                command: /bin/bash
+                run_if: passed
+            - exec:
+                arguments:
+                  - -c
+                  - find /go/pipelines
                 command: /bin/bash
                 run_if: passed
     - deploy:
