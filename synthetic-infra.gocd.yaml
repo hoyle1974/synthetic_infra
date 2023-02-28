@@ -1,6 +1,5 @@
 format_version: 10
 pipelines:
-  environment: default
   synthetic-infra:
     group: sample
     label_template: ${COUNT}
