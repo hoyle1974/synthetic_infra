@@ -1,6 +1,6 @@
 format_version: 10
 pipelines:
-  synthetic-infra-ping:
+  synthetic-infra-pong:
     group: sample
     label_template: ${COUNT}
     lock_behavior: none
@@ -20,7 +20,7 @@ pipelines:
           type: success
           allow_only_on_success: false
         jobs:
-          build-ping:
+          build-pong:
             elastic_profile_id: buildah
             timeout: 0
             artifacts:
@@ -28,7 +28,7 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - buildah bud -t ping:${GO_PIPELINE_LABEL} -f Dockerfile.ping .
+                  - buildah bud -t pong:${GO_PIPELINE_LABEL} -f Dockerfile.pong .
                 command: /bin/bash
                 run_if: passed
             - exec:
@@ -40,6 +40,6 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - buildah push ping:${GO_PIPELINE_LABEL} docker://jstrohm/ping:${GO_PIPELINE_LABEL}
+                  - buildah push pong:${GO_PIPELINE_LABEL} docker://jstrohm/pong:${GO_PIPELINE_LABEL}
                 command: /bin/bash
                 run_if: passed

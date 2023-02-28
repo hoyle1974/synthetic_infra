@@ -2,10 +2,13 @@
 # STEP 1 build executable binary
 ############################
 #FROM golang:1.20rc3-alpine as builder
-FROM golang:1.20rc3-alpine@sha256:d78cd58c598fa1f0c92046f61fde32d739781e036e3dc7ccf8fdb50129243dd8 as builder
+#FROM golang:1.20rc3-alpine@sha256:d78cd58c598fa1f0c92046f61fde32d739781e036e3dc7ccf8fdb50129243dd8 as builder
+FROM docker.io/library/golang@sha256:d78cd58c598fa1f0c92046f61fde32d739781e036e3dc7ccf8fdb50129243dd8 as builder
+#FROM golang:1.20.1-buster as builder
 # Install git + SSL ca certificates.
 # Git is required for fetching the dependencies.
 # Ca-certificates is required to call HTTPS endpoints.
+USER root
 RUN apk update && apk add --no-cache git ca-certificates && update-ca-certificates && apk add --no-cache upx
 # Create appuser
 ENV USER=appuser
@@ -26,7 +29,7 @@ RUN cd pingpong && go mod download
 RUN cd pingpong  && go mod verify
 # Build the binary
 RUN cd pingpong && GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /go/bin/pingpong
-RUN upx /go/bin/pingpong
+#RUN upx /go/bin/pingpong
 ############################
 # STEP 2 build a small image
 ############################
