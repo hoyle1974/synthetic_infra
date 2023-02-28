@@ -41,24 +41,12 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - ls /var/lib/containers
+                  - buildah login -u jackstrohm -p $DOCKER_PASSWORD registry-1.docker.io:5000
                 command: /bin/bash
                 run_if: passed
             - exec:
                 arguments:
                   - -c
-                  - buildah images
-                command: /bin/bash
-                run_if: passed
-            - exec:
-                arguments:
-                  - -c
-                  - buildah push ping:${GO_PIPELINE_LABEL} docker-archive:/go/dockerfiles/ping:${GO_PIPELINE_LABEL}
-                command: /bin/bash
-                run_if: passed
-            - exec:
-                arguments:
-                  - -c
-                  - ls -al /go/dockerfiles/ping
+                  - buildah push ping:${GO_PIPELINE_LABEL} docker:jstrohm/ping:${GO_PIPELINE_LABEL}
                 command: /bin/bash
                 run_if: passed
