@@ -30,12 +30,6 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - pwd
-                command: /bin/bash
-                run_if: passed
-            - exec:
-                arguments:
-                  - -c
                   - buildah bud -t ping:${GO_PIPELINE_LABEL} -f Dockerfile.ping .
                 command: /bin/bash
                 run_if: passed
@@ -64,6 +58,18 @@ pipelines:
             timeout: 0
             artifacts:
             tasks:
+            - fetch:
+                pipeline: synthetic-infra-ping
+                stage: build
+                job: build-ping
+                source: build/
+                destination: build/
+            - exec:
+                arguments:
+                  - -c
+                  - find .
+                command: /bin/bash
+                run_if: passed
             - exec:
                 arguments:
                   - -c
