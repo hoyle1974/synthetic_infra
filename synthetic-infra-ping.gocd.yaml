@@ -63,7 +63,6 @@ pipelines:
                 stage: build
                 job: build-ping
                 source: build/
-                destination: build/
             - exec:
                 arguments:
                   - -c
