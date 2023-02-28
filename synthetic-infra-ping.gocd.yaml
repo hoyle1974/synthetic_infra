@@ -31,6 +31,12 @@ pipelines:
                   - buildah bud -t ping:${GO_PIPELINE_LABEL} -f Dockerfile.ping .
                 command: /bin/bash
                 run_if: passed
+            - exec:
+                arguments:
+                  - -c
+                  - buildah push -t ping:${GO_PIPELINE_LABEL} oci-archive:/go/ping.tar
+                command: /bin/bash
+                run_if: passed
     - deploy:
         fetch_materials: true
         keep_artifacts: false
@@ -43,6 +49,9 @@ pipelines:
             elastic_profile_id: buildah
             timeout: 0
             artifacts:
+            - artifact:
+              type: build
+              src: /go/ping.tar
             tasks:
             - exec:
                 arguments:
