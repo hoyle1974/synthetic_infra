@@ -6,6 +6,7 @@ buildah config --env GOPATH="" $container
 buildah run $container go mod download
 buildah run $container go build .
 mountpoint=$(buildah mount $container)
+find $mountpoint
 cp $mountpont/pingpong ./pingpong_v2
-builda unmount $mountpoint
+buildah unmount $mountpoint
 buildah rm $container
