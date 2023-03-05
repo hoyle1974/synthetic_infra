@@ -5,4 +5,7 @@ buildah copy $container "pingpong/*" .
 buildah config --env GOPATH="" $container
 buildah run $container go mod download
 buildah run $container go build .
+mountpoint=$(buildah mount $container)
+cp $mountpont/pingpong ./pingpong_v2
+builda unmount $mountpoint
 buildah rm $container
