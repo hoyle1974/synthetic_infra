@@ -30,7 +30,7 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - make
+                  - make compile
                 command: /bin/bash
                 run_if: passed
     - package:
