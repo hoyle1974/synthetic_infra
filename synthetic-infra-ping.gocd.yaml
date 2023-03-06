@@ -24,11 +24,13 @@ pipelines:
             elastic_profile_id: buildah
             timeout: 0
             artifacts:
+            - build:
+                source: bin
             tasks:
             - exec:
                 arguments:
                   - -c
-                  - ./buildah_compile.sh
+                  - make
                 command: /bin/bash
                 run_if: passed
     - package:
