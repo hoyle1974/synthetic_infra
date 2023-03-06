@@ -47,12 +47,6 @@ pipelines:
                   - mkdir build && cd build && buildah push ping:${GO_PIPELINE_LABEL} oci-archive:./ping.tar:ping:${GO_PIPELINE_LABEL}
                 command: /bin/bash
                 run_if: passed
-            - exec:
-                arguments:
-                  - -c
-                  - find /godata/pipelines/synthetic-infra-ping
-                command: /bin/bash
-                run_if: passed
     - deploy:
         fetch_materials: true
         keep_artifacts: false
@@ -67,7 +61,7 @@ pipelines:
             artifacts:
             tasks:
             - fetch:
-                pipeline: synthetic-infra-ping
+                pipeline: ping
                 stage: package
                 job: package-ping
                 source: build/
