@@ -28,10 +28,10 @@ pipelines:
                 source: bin
             tasks:
             - fetch:
-              pipeline: pingpong
-              stage: compile
-              job: compile-pingpong
-              source: bin/
+                pipeline: pingpong
+                stage: compile
+                job: compile-pingpong
+                source: bin/
             - exec:
                 arguments:
                   - -c
