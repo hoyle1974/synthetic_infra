@@ -11,7 +11,9 @@ pipelines:
         shallow_clone: false
         auto_update: true
         branch: main
-      pipeline: pingpong
+      upstream:
+        pipeline: pingpong
+        stage: compile
     stages:
     - package:
         fetch_materials: true
