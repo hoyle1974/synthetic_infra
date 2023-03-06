@@ -6,7 +6,7 @@ FROM docker.io/library/golang@sha256:d78cd58c598fa1f0c92046f61fde32d739781e036e3
 # Git is required for fetching the dependencies.
 # Ca-certificates is required to call HTTPS endpoints.
 USER root
-RUN apk update && apk add --no-cache git ca-certificates && update-ca-certificates && apk add --no-cache upx
+#RUN apk update && apk add --no-cache git ca-certificates && update-ca-certificates && apk add --no-cache upx
 # Create appuser
 ENV USER=appuser
 ENV UID=10001
