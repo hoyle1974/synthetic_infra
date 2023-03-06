@@ -38,7 +38,19 @@ pipelines:
             - exec:
                 arguments:
                   - -c
+                  - pwd
+                command: /bin/bash
+                run_if: passed
+            - exec:
+                arguments:
+                  - -c
                   - find .
+                command: /bin/bash
+                run_if: passed
+            - exec:
+                arguments:
+                  - -c
+                  - find /go/pipelines
                 command: /bin/bash
                 run_if: passed
             - exec:
