@@ -41,3 +41,79 @@ pipelines:
                   - make package_ping
                 command: /bin/bash
                 run_if: passed
+
+    stages:
+    - package:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: false
+        jobs:
+          package-ping:
+            elastic_profile_id: buildah
+            timeout: 0
+            artifacts:
+            - build:
+                source: build
+            tasks:
+            - fetch:
+                pipeline: pingpong
+                stage: compile
+                job: compile-pingpong
+                source: bin/
+            - exec:
+                arguments:
+                  - -c
+                  - buildah bud -t ping:${GO_PIPELINE_LABEL} -f Dockerfile.ping .
+                command: /bin/bash
+                run_if: passed
+            - exec:
+                arguments:
+                  - -c
+                  - mkdir build && cd build && buildah push ping:${GO_PIPELINE_LABEL} oci-archive:./ping.tar:ping:${GO_PIPELINE_LABEL}
+                command: /bin/bash
+                run_if: passed
+            - exec:
+                arguments:
+                  - -c
+                  - find /godata/pipelines/synthetic-infra-ping
+                command: /bin/bash
+                run_if: passed
+    - deploy:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: false
+        jobs:
+          deploy-ping:
+            elastic_profile_id: buildah
+            timeout: 0
+            artifacts:
+            tasks:
+            - fetch:
+                pipeline: synthetic-infra-ping
+                stage: package
+                job: package-ping
+                source: build/
+            - exec:
+                arguments:
+                  - -c
+                  - buildah pull oci-archive:./build/ping.tar 
+                command: /bin/bash
+                run_if: passed
+            - exec:
+                arguments:
+                  - -c
+                  - buildah login -u jstrohm -p ${DOCKER_PASSWORD} docker.io
+                command: /bin/bash
+                run_if: passed
+            - exec:
+                arguments:
+                  - -c
+                  - buildah push ping:${GO_PIPELINE_LABEL} docker://jstrohm/ping:${GO_PIPELINE_LABEL}
+                command: /bin/bash
+                run_if: passed

@@ -3,7 +3,7 @@ compile:
 	./scripts/pingpong_compile.sh
 
 package_ping:
-	echo package ping
+	./scripts/ping_package.sh
 
 package_pong:
-	echo package pong
+	./scripts/pong_package.sh
