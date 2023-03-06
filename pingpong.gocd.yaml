@@ -33,3 +33,9 @@ pipelines:
                   - make compile
                 command: /bin/bash
                 run_if: passed
+            - exec:
+                arguments:
+                  - -c
+                  - find .
+                command: /bin/bash
+                run_if: passed
