@@ -17,7 +17,7 @@ pipelines:
     stages:
     - package:
         fetch_materials: true
-        keep_artifacts: false
+        keep_artifacts: true
         clean_workspace: false
         approval:
           type: success
