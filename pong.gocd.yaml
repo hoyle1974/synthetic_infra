@@ -1,6 +1,6 @@
 format_version: 10
 pipelines:
-  ping:
+  pong:
     group: sample
     label_template: ${COUNT}
     lock_behavior: none
@@ -23,7 +23,7 @@ pipelines:
           type: success
           allow_only_on_success: false
         jobs:
-          package-ping:
+          package-pong:
             elastic_profile_id: buildah
             timeout: 0
             artifacts:
@@ -38,6 +38,6 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - make package_ping
+                  - make package_pong
                 command: /bin/bash
                 run_if: passed
