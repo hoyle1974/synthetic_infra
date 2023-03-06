@@ -1,6 +1,6 @@
 FROM gocd/gocd-agent-centos-9:v22.3.0
 USER root
-RUN yum -y install buildah fuse-overlayfs --exclude container-selinux
+RUN yum -y install make buildah podman fuse-overlayfs --exclude container-selinux
 RUN  rm -rf /var/cache /var/log/dnf* /var/log/yum.*
 RUN sed -i -e 's|^#mount_program|mount_program|g' -e '/additionalimage.*/a "/var/lib/shared",' /etc/containers/storage.conf
 RUN chmod g+s /usr/bin/newgidmap
