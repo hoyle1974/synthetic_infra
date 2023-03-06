@@ -28,34 +28,6 @@ pipelines:
             timeout: 0
             artifacts:
             - build:
-                source: bin
-            tasks:
-            - fetch:
-                pipeline: pingpong
-                stage: compile
-                job: compile-pingpong
-                source: bin/
-            - exec:
-                arguments:
-                  - -c
-                  - make package_ping
-                command: /bin/bash
-                run_if: passed
-
-    stages:
-    - package:
-        fetch_materials: true
-        keep_artifacts: false
-        clean_workspace: false
-        approval:
-          type: success
-          allow_only_on_success: false
-        jobs:
-          package-ping:
-            elastic_profile_id: buildah
-            timeout: 0
-            artifacts:
-            - build:
                 source: build
             tasks:
             - fetch:
