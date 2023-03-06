@@ -10,8 +10,12 @@ buildah run $container go mod download
 buildah run $container go build .
 mountpoint=$(buildah mount $container)
 echo "Mountpoint: $mountpoint"
+echo "-----------------------"
 buildah run $container pwd
 buildah run $container find .
+echo "-----------------------"
 cp $mountpoint/go/pingpong ./bin
+echo "-----------------------"
+find .
 buildah unmount $mountpoint
 buildah rm $container
