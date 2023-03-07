@@ -59,7 +59,7 @@ pipelines:
                   - mkdir build && cd build && buildah push pong:${GO_PIPELINE_LABEL} oci-archive:./pong.tar:pong:${GO_PIPELINE_LABEL}
                 command: /bin/bash
                 run_if: passed
-    - deploy:
+    - push:
         fetch_materials: true
         keep_artifacts: false
         clean_workspace: false
@@ -67,7 +67,7 @@ pipelines:
           type: success
           allow_only_on_success: false
         jobs:
-          deploy-pong:
+          push-pong:
             elastic_profile_id: buildah
             timeout: 0
             artifacts:
