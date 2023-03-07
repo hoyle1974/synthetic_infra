@@ -95,3 +95,22 @@ pipelines:
                   - buildah push ping:${GO_PIPELINE_LABEL} docker://jstrohm/ping:${GO_PIPELINE_LABEL}
                 command: /bin/bash
                 run_if: passed
+    - deploy:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: false
+        jobs:
+          push-ping:
+            elastic_profile_id: buildah
+            timeout: 0
+            artifacts:
+            tasks:
+            - exec:
+                arguments:
+                  - -c
+                  - kubectl set image deployment/ping ping=jstrohm/ping:${GO_PIPELINE_LABEL}
+                command: /bin/bash
+                run_if: passed
