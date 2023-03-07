@@ -34,7 +34,7 @@ pipelines:
                 pipeline: pingpong
                 stage: compile
                 job: compile-pingpong
-                source: bin/
+                source: pingpong/
             - exec:
                 arguments:
                   - -c
@@ -56,7 +56,7 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - buildah bud -t ping:${GO_PIPELINE_LABEL} -f Dockerfile.ping .
+                  - buildah bud -t ping:${GO_PIPELINE_LABEL} -f pongpong/Dockerfile.ping .
                 command: /bin/bash
                 run_if: passed
             - exec:

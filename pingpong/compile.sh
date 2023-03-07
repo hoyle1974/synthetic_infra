@@ -13,6 +13,6 @@ echo "Mountpoint: $mountpoint"
 buildah run $container pwd
 buildah run $container find .
 find .
-cp $mountpoint/go/pingpong .
+cp $mountpoint/go/pingpong ./pingpong/pingpong
 buildah unmount $mountpoint
 buildah rm $container
