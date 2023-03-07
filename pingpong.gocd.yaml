@@ -25,12 +25,14 @@ pipelines:
             timeout: 0
             artifacts:
             - build:
-                source: .
+                source: bin
+            - build:
+                source: pingpong
             tasks:
             - exec:
                 arguments:
                   - -c
-                  - make compile
+                  - pingpong/compile.sh
                 command: /bin/bash
                 run_if: passed
             - exec:
