@@ -1,6 +1,6 @@
 format_version: 10
 pipelines:
-  ping:
+  pong:
     group: sample
     label_template: ${COUNT}
     lock_behavior: none
