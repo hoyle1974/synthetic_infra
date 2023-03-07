@@ -12,6 +12,7 @@ mountpoint=$(buildah mount $container)
 echo "Mountpoint: $mountpoint"
 buildah run $container pwd
 buildah run $container find .
+find .
 cp $mountpoint/go/pingpong .
 buildah unmount $mountpoint
 buildah rm $container
