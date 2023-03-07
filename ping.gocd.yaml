@@ -6,11 +6,11 @@ pipelines:
     lock_behavior: none
     display_order: -1
     materials:
-      git-589ea36:
-        git: https://github.com/hoyle1974/synthetic_infra.git
-        shallow_clone: false
-        auto_update: true
-        branch: main
+      #git-589ea36:
+      #git: https://github.com/hoyle1974/synthetic_infra.git
+      #shallow_clone: false
+      #auto_update: true
+      #branch: main
       upstream:
         pipeline: pingpong
         stage: compile
@@ -56,7 +56,7 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - buildah bud -t ping:${GO_PIPELINE_LABEL} -f pongpong/Dockerfile.ping .
+                  - buildah bud -t ping:${GO_PIPELINE_LABEL} -f pingpong/Dockerfile.ping .
                 command: /bin/bash
                 run_if: passed
             - exec:
