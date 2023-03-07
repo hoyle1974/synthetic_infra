@@ -38,6 +38,6 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - find /go/pipelines/pingpong/bin
+                  - find .
                 command: /bin/bash
                 run_if: passed
