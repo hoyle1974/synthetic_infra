@@ -50,12 +50,6 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - find /go/pipelines
-                command: /bin/bash
-                run_if: passed
-            - exec:
-                arguments:
-                  - -c
                   - buildah bud -t ping:${GO_PIPELINE_LABEL} -f pingpong/Dockerfile.ping .
                 command: /bin/bash
                 run_if: passed
