@@ -111,12 +111,12 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - kubectl get pod
+                  - kubectl get pod -n default
                 command: /bin/bash
                 run_if: passed
             - exec:
                 arguments:
                   - -c
-                  - kubectl set image deployment/ping ping=jstrohm/ping:${GO_PIPELINE_LABEL}
+                  - kubectl set image deployment/ping ping=jstrohm/ping:${GO_PIPELINE_LABEL} -n default
                 command: /bin/bash
                 run_if: passed
