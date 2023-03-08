@@ -117,6 +117,6 @@ pipelines:
             - exec:
                 arguments:
                   - -c
-                  - kubectl set image deployment/pong pong=jstrohm/ping:${GO_PIPELINE_LABEL} -n default
+                  - kubectl set image deployment/pong pong=jstrohm/pong:${GO_PIPELINE_LABEL} -n default
                 command: /bin/bash
                 run_if: passed
