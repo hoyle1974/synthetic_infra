@@ -19,10 +19,10 @@ spec:
     spec:
       containers:
       - name: ping
-        image: k3d-myregistry.localhost:12345/ping:v1
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 5000
+        #image: k3d-myregistry.localhost:12345/ping:v1
+        image: jstrohm/ping:50
+      imagePullSecrets:
+      - name: regcred
 ---
 #apiVersion: networking.k8s.io/v1
 #kind: Ingress
