@@ -1,0 +1,6 @@
+#FROM gocd/gocd-agent-centos-9:v22.3.0
+FROM gocd/gocd-agent-alpine-3.16:v22.3.0
+USER root
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+ENTRYPOINT ["/docker-entrypoint.sh"]
+USER go

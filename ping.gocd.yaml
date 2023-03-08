@@ -104,10 +104,16 @@ pipelines:
           allow_only_on_success: false
         jobs:
           push-ping:
-            elastic_profile_id: buildah
+            elastic_profile_id: kubectl
             timeout: 0
             artifacts:
             tasks:
+            - exec:
+                arguments:
+                  - -c
+                  - kubectl get pod
+                command: /bin/bash
+                run_if: passed
             - exec:
                 arguments:
                   - -c

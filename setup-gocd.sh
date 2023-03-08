@@ -71,6 +71,32 @@ spec:
           }
         ]
       }'
+curl $URL'/go/api/elastic/profiles' \
+      -H 'Accept: application/vnd.go.cd.v2+json' \
+      -H 'Content-Type: application/json' \
+      -X POST -d '{
+        "id": "kubectl",
+        "cluster_profile_id": "k8-cluster-profile",
+        "properties": [
+          {
+            "key": "PodSpecType",
+            "value" : "yaml"
+          },
+          {
+            "key": "PodConfiguration",
+            "value" : "apiVersion: v1
+kind: Pod
+metadata:
+  name: gocd-agent-kubectl
+  labels:
+    app: web
+spec:
+  containers:
+    - name: gocd-agent-container-kubectl
+      image: docker.io/jstrohm/gocd-agent-kubectl"
+          }
+        ]
+      }'
 }
 
 ConfigRepo
